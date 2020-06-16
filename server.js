@@ -1,4 +1,4 @@
-import config from './config.js';
+//import config from './config.js';
 import testModel from './models/basicSchema.js';
 import routes from './routes/api.js'
 import mongoose from 'mongoose';
@@ -7,7 +7,8 @@ import express from 'express';
 import path from 'path';
 
 
-const uri = config.db.uri;
+// const uri = config.db.uri;
+const uri = 'mongodb+srv://ben-test:test123@cluster0-rou6o.mongodb.net/GuideBuild?retryWrites=true&w=majority';
 
 //Initialize an express application
 const app = express();
