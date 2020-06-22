@@ -3,8 +3,8 @@ import testModel from '../models/basicSchema.js';
 
 const router = express.Router();
 
-//For now, set up simple responses
-//Send all test data for an api path
+
+//If the path is simply api/test, get all test objects
 router.get('/', (req, res) => {
     testModel.find({ })
     .then((data) => {
@@ -16,10 +16,12 @@ router.get('/', (req, res) => {
     });
 });
 
+//If the path is to anything else, send "Unavailable Route"
 router.get('/*', (req, res) => {
     res.send("Unavailable Route.");
 });
 
+//
 router.post('/save', (req, res) => {
     const data = req.body;
     const basic = new testModel(data);

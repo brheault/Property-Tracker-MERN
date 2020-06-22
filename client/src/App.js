@@ -17,7 +17,7 @@ class App extends React.Component {
 
   getPost = () => {
     //Send a request for data
-    axios.get('/api')
+    axios.get('/api/test')
     //Do something with the returned data
     .then((response) => {
       const data = response.data;
@@ -47,7 +47,7 @@ class App extends React.Component {
     };
 
     axios({
-      url: '/api/save',
+      url: '/api/test/save',
       method: 'POST',
       data: payload
     })

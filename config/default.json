@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://ben-test:test123@cluster0-rou6o.mongodb.net/GuideBuild?retryWrites=true&w=majority",
+    "jwtSecret": "pt_myJwtSecret"
+}
