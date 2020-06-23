@@ -1,10 +1,13 @@
 import express from 'express';
 import testModel from '../models/basicSchema.js';
+import auth from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 
-//If the path is simply api/test, get all test objects
+// @route  => GET api/test
+// @desc   => Returns all test objects
+// @access => Public
 router.get('/', (req, res) => {
     testModel.find({ })
     .then((data) => {
@@ -16,13 +19,32 @@ router.get('/', (req, res) => {
     });
 });
 
-//If the path is to anything else, send "Unavailable Route"
+// @route  => DELETE api/test/delete
+// @desc   => Deletes a test object given the title in the request
+// @access => Private
+router.delete('/delete', auth, (req, res) => {
+    const title = req.body.title;
+    testModel.findOneAndDelete({ title })
+    .then((data) => {
+        console.log('Data: ', data);
+        res.json(data);
+    })
+    .catch((error) => {
+        console.log('Error deleting data: ', error);
+    });
+});
+
+// @route  => GET api/test/*
+// @desc   => Returns a response of "Unavailable Route" for any undefined route
+// @access => Public
 router.get('/*', (req, res) => {
     res.send("Unavailable Route.");
 });
 
-//
-router.post('/save', (req, res) => {
+// @route  => POST api/test/save
+// @desc   => Saves a new test object given the JSON in the response
+// @access => Private
+router.post('/save', auth, (req, res) => {
     const data = req.body;
     const basic = new testModel(data);
     basic.save((error) => {

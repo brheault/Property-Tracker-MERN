@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
+import AppNavBar from "./components/AppNavBar.js";
+import TestList from "./components/TestList.js";
 
-class App extends React.Component {
+//Redux imports
+import { Provider } from 'react-redux';
+import store from "./store"
+
+class App extends Component {
 
   state = {
     title: '',
@@ -81,23 +88,14 @@ class App extends React.Component {
   render(){
     //JSX
     return(
-      <div className='app'>
-        <h2>Welcome to my app</h2>
-        <form onSubmit={this.submit}>
-          <div className="form-input">
-            <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
-          </div>
-          <div className="form-input">
-            <textarea name="body" cols="30" rows="10" value={this.state.body} onChange={this.handleChange} ></textarea>
-          </div>
-
-          <button>Submit</button>
-        </form>
-
-        <div className="post">
-          {this.displayPosts(this.state.posts)}
+      <Provider store={store}>
+        <div className='app'>
+          <AppNavBar/>
+          <TestList/>
+          
+          
         </div>
-      </div>
+      </Provider>
     );
   }
 

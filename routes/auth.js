@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/user.js';
 import bcrypt from'bcryptjs';
 import jwt from 'jsonwebtoken';
+import auth from '../middleware/authMiddleware.js'
 
 //This should eventually be imported from elsewhere:
 const jwtSecret= "pt_myJwtSecret";
@@ -9,7 +10,7 @@ const jwtSecret= "pt_myJwtSecret";
 const router = express.Router();
 
 // @route  => GET api/auth
-// @desc   => Authenticate the user
+// @desc   => Authenticate the user given email and password
 // @access => Public
 router.post('/', (req, res) => {
     //Data for registration comes in through the request
@@ -48,5 +49,15 @@ router.post('/', (req, res) => {
            
         });
 });
+
+// @route  => GET api/auth/user
+// @desc   => Get user data from token
+// @access => Private
+router.get('/user', auth, (req, res) => {
+    User.findById(req.user.id)
+        .select('-password')
+        .then(user => res.json(user));
+})
+
 
 export default router;
