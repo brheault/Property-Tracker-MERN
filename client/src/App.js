@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import AppNavBar from "./components/AppNavBar.js";
 import TestList from "./components/TestList.js";
+import ItemModal from "./components/ItemModal";
+import {Container} from "reactstrap";
 
 //Redux imports
 import { Provider } from 'react-redux';
@@ -91,8 +93,25 @@ class App extends Component {
       <Provider store={store}>
         <div className='app'>
           <AppNavBar/>
-          <TestList/>
+          <Container>
+            <ItemModal/>
+            <TestList/>
+          </Container>
           
+          <form onSubmit={this.submit}>
+            <div className="form-input">
+              <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
+            </div>
+            <div className="form-input">
+              <textarea name="body" cols="30" rows="10" value={this.state.body} onChange={this.handleChange} ></textarea>
+            </div>
+
+            <button>Submit</button>
+          </form>
+
+          <div className="post">
+            {this.displayPosts(this.state.posts)}
+          </div>
           
         </div>
       </Provider>
