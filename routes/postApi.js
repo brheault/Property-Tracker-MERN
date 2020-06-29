@@ -11,7 +11,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
     testModel.find({ })
     .then((data) => {
-        console.log('Data: ', data);
         res.json(data);
     })
     .catch((error) => {
@@ -26,7 +25,6 @@ router.delete('/delete', auth, (req, res) => {
     const title = req.body.title;
     testModel.findOneAndDelete({ title })
     .then((data) => {
-        console.log('Data: ', data);
         res.json(data);
     })
     .catch((error) => {
@@ -45,7 +43,6 @@ router.get('/*', (req, res) => {
 // @desc   => Saves a new test object given the JSON in the response
 // @access => Private
 router.post('/save', /*auth,*/ (req, res) => {
-    console.log("Made it to POST Function")
     const data = req.body;
     const basic = new testModel(data);
     basic.save((error) => {
@@ -53,11 +50,8 @@ router.post('/save', /*auth,*/ (req, res) => {
             res.status(500).json({msg: "Problem saving data!"});
             return;
         }
-        
         return res.status(200).json({msg: "We received your data"});
-        
     });
-    
 });
 
 export default router;
