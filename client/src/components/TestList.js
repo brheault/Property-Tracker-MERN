@@ -25,13 +25,13 @@ class TestList extends Component {
                     <TransitionGroup className="test-list">
                         {/*For each item gotten from the state, display it as a ListGroupItem*/}
                         {/*ID is taken in for deletion, name is taken in for display*/}
-                        {items.map(({id, name}) => (
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {items.map(({_id, name}) => (
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
                                     {/* On Click, delete the item by filtering it out of the state */}
                                     <Button className="remove-btn" color="danger" size="sm" 
                                             
-                                            onClick={this.onDeleteClick.bind(this, id)}>
+                                            onClick={this.onDeleteClick.bind(this, _id)}>
                                         &times;
                                     </Button>
                                     {name}
