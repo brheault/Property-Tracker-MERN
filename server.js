@@ -4,7 +4,7 @@
 import testRoutes from './routes/postApi.js'
 import userRoutes from './routes/userApi.js'
 import authRoutes from './routes/auth.js'
-import itemRoutes from './routes/items.js'
+import itemRoutes from './routes/itemApi.js'
 
 //Import Packages
 import mongoose from 'mongoose';

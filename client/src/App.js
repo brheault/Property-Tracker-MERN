@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import AppNavBar from "./components/AppNavBar.js";
 import TestList from "./components/TestList.js";
-import ItemModal from "./components/ItemModal";
+import AddItemModal from "./components/AddItemModal";
 import {Container} from "reactstrap";
 
 //Redux imports
@@ -92,12 +92,15 @@ class App extends Component {
     return(
       <Provider store={store}>
         <div className='app'>
+
+          {/*Traversy Media Content*/}
           <AppNavBar/>
           <Container>
-            <ItemModal/>
+            <AddItemModal/>
             <TestList/>
           </Container>
           
+          {/*Esterling Accime Content*/}
           <form onSubmit={this.submit}>
             <div className="form-input">
               <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
