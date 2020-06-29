@@ -44,7 +44,8 @@ router.get('/*', (req, res) => {
 // @route  => POST api/test/save
 // @desc   => Saves a new test object given the JSON in the response
 // @access => Private
-router.post('/save', auth, (req, res) => {
+router.post('/save', /*auth,*/ (req, res) => {
+    console.log("Made it to POST Function")
     const data = req.body;
     const basic = new testModel(data);
     basic.save((error) => {

@@ -1,7 +1,7 @@
 //import config from './config/config.js';
 
 //Import Routes
-import testRoutes from './routes/api.js'
+import testRoutes from './routes/postApi.js'
 import userRoutes from './routes/userApi.js'
 import authRoutes from './routes/auth.js'
 import itemRoutes from './routes/items.js'
