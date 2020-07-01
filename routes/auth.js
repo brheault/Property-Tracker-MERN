@@ -9,7 +9,7 @@ const jwtSecret= "pt_myJwtSecret";
 
 const router = express.Router();
 
-// @route  => GET api/auth
+// @route  => POST api/auth
 // @desc   => Authenticate the user given email and password
 // @access => Public
 router.post('/', (req, res) => {
@@ -55,7 +55,7 @@ router.post('/', (req, res) => {
 // @access => Private
 router.get('/user', auth, (req, res) => {
     User.findById(req.user.id)
-        .select('-password')
+        .select('-password') //Disregard the password
         .then(user => res.json(user));
 })
 

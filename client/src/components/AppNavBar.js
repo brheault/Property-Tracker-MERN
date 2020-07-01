@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RegisterModal from "./auth/RegisterModal.js"
 import{
     Collapse,
     Navbar,
@@ -9,6 +10,7 @@ import{
     NavLink,
     Container
 } from 'reactstrap';
+import Logout from "./auth/Logout.js"
 
 class AppNavBar extends Component {
     state = {
@@ -31,9 +33,10 @@ class AppNavBar extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="https://github.com/brheault">
-                                    Github
-                                </NavLink>
+                                <RegisterModal/>
+                            </NavItem>
+                            <NavItem>
+                                <Logout/>
                             </NavItem>
                         </Nav>
                     </Collapse>

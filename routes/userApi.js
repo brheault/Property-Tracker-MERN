@@ -6,9 +6,10 @@ import jwt from 'jsonwebtoken';
 //This should eventually be imported from elsewhere:
 const jwtSecret= "pt_myJwtSecret";
 
+
 const router = express.Router();
 
-// @route  => GET api/users
+// @route  => POST api/users
 // @desc   => Register a new user
 // @access => Public
 router.post('/', (req, res) => {
@@ -17,31 +18,36 @@ router.post('/', (req, res) => {
 
     //Verify that everything is included
     if (!name || !password || !email){
+        console.log("Not all information given");
         return res.status(400).json({msg: "Please enter all fields"});
     }
 
     //Check if the email is already in use
     User.findOne({email})
         .then(user => {
-            if(user) return res.status(400).json({msg: "Email already in use"})
+            if (user) return res.status(400).json({msg: "Email already in use"})
 
-            //Otherwise create a new user
+            //Otherwise, create a new user
             const newUser = new User({
                 name,
                 email,
                 password
             });
 
-            //Hash the password for the user for security
+            //Hash the password for security
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    //How we have the hash
                     if(err) throw err;
                     newUser.password = hash;
 
                     //Save the new user
                     newUser.save().then(user => {
                         //Create JSON Web Token Payload, secret, and expiration time
-                        jwt.sign({id: user.id}, jwtSecret, {expiresIn: 3600},
+                        jwt.sign(
+                            {id: user.id}, 
+                            jwtSecret, 
+                            {expiresIn: 3600},
                             (err, token) => {
                                 if (err) throw err;
                                 res.json({

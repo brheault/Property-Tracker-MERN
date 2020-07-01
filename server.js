@@ -1,7 +1,6 @@
 //import config from './config/config.js';
 
 //Import Routes
-import testRoutes from './routes/postApi.js'
 import userRoutes from './routes/userApi.js'
 import authRoutes from './routes/auth.js'
 import itemRoutes from './routes/itemApi.js'
@@ -46,7 +45,6 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //Send api requests to the correct folders
-app.use('/api/test', testRoutes);
 app.use('/api/items', itemRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
