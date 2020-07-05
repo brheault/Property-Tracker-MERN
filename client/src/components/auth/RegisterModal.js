@@ -14,7 +14,7 @@ import {
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {register} from '../../actions/authActions.js';
-import { TokenExpiredError } from 'jsonwebtoken';
+//import { TokenExpiredError } from 'jsonwebtoken';
 import {clearErrors} from '../../actions/errorActions.js';
 
 class RegisterModal extends Component{

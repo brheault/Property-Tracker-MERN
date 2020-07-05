@@ -8,12 +8,12 @@ import{
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
+//    NavLink,
     Container
 } from 'reactstrap';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import Logout from "./auth/Logout.js"
+import Logout from "./auth/Logout.js";
 
 class AppNavBar extends Component {
     state = {
@@ -62,7 +62,8 @@ class AppNavBar extends Component {
         <div>
             <Navbar color="dark" dark expand="sm" className="mb-5">
                 <Container>
-                    <NavbarBrand href="/">Posts</NavbarBrand>
+                    <NavbarBrand href="/">Home</NavbarBrand>
+                    <NavbarBrand href="/properties">Properties</NavbarBrand>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

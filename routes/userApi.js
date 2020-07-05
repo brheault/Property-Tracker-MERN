@@ -2,6 +2,9 @@ import express from 'express';
 import User from '../models/user.js';
 import bcrypt from'bcryptjs';
 import jwt from 'jsonwebtoken';
+import Property from "../models/property.js";
+import auth from '../middleware/authMiddleware.js';
+import mongoose from 'mongoose';
 
 //This should eventually be imported from elsewhere:
 const jwtSecret= "pt_myJwtSecret";
@@ -67,5 +70,42 @@ router.post('/', (req, res) => {
             })
         })
 });
+
+
+/*********************************
+ ********** Properties ***********
+ *********************************/
+// @route  => GET api/users/properties/<id>
+// @desc   => Returns the properties of a user given their ID
+// @access => Private
+router.get('/properties/:id', (req, res) => {
+    Property.find({userId: req.params.id})
+        .sort({ dateAdded: -1 })
+        .then(properties => res.json(properties))
+});
+
+// @route  => POST api/users/properties/<id>
+// @desc   => Creates a new property object tied to a user's id
+// @access => Private
+router.post('/properties', auth, (req, res) => {
+    const newProperty = new Property({
+        address: req.body.address,
+        listedPrice: req.body.listedPrice,
+        userId: mongoose.Types.ObjectId(req.body.userId)
+    });
+    newProperty.save()
+        .then(property => res.json(property));
+});
+
+// @route  => DELETE api/users/properties/<id>
+// @desc   => Deletes a property given its ID
+// @access => Private
+router.delete('/properties/:id', (req, res) => {
+    Property.findById(req.params.id)
+        .then(property => property.remove()
+        .then(() => res.json({success: true})))
+        .catch(err => res.status(404).json({success: false}));
+});
+
 
 export default router;

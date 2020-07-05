@@ -15,9 +15,7 @@ import {
 export const loadUser = () => (dispatch, getState) => {
     //Set User loading to true
     dispatch({type: USER_LOADING});
-
-
-
+    console.log("Hello World", tokenConfig(getState));
     axios.get('/api/auth/user', tokenConfig(getState))
         .then(res => dispatch({type: USER_LOADED, payload: res.data}))
         .catch(err => {
@@ -89,6 +87,7 @@ export const logout = () => {
 export const tokenConfig = getState => {
     //Get Token from local storage
     const token = getState().auth.token;
+    console.log(token);
 
     //Headers
     const config={
