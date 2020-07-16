@@ -75,6 +75,15 @@ router.post('/', (req, res) => {
 /*********************************
  ********** Properties ***********
  *********************************/
+// @route  => GET api/users/properties
+// @desc   => Returns ALL properties of all users (For development only)
+// @access => Public
+router.get('/properties', (req, res) => {
+    Property.find()
+        .sort({ dateAdded: -1 })
+        .then(properties => res.json(properties))
+});
+
 // @route  => GET api/users/properties/<id>
 // @desc   => Returns the properties of a user given their ID
 // @access => Private
