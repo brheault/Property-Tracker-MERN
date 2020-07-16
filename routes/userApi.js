@@ -96,7 +96,7 @@ router.get('/properties/:id', (req, res) => {
 // @route  => POST api/users/properties/<id>
 // @desc   => Creates a new property object tied to a user's id
 // @access => Private
-router.post('/properties', auth, (req, res) => {
+router.post('/properties'/*, auth*/, (req, res) => {
     const newProperty = new Property({
         address: req.body.address,
         listedPrice: req.body.listedPrice,
