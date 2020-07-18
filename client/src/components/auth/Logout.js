@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {logout} from '../../actions/authActions.js';
-import {Navlink} from 'reactstrap';
 import {connect} from 'react-redux';
 import { NavLink } from 'reactstrap';
 import PropTypes from 'prop-types';

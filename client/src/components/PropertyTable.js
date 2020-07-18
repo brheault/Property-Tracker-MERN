@@ -1,34 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import { Container, ListGroup, ListGroupItem, Button} from 'reactstrap';
+import React, { Component } from 'react';
+import { Container} from 'reactstrap';
 import {connect} from 'react-redux';
-import {getProperties, deleteProperty} from '../actions/itemActions.js';
+import {getAllProperites} from '../actions/propertyActions.js';
 import PropTypes from 'prop-types';
 
 class PropertyTable extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            properties: []  //Empty by default, will be filled when component mounts
-        }
-    }
-    
-    // static propTypes = {
-    //     getProperties: PropTypes.func.isRequired,
-    //     property: PropTypes.object.isRequired,
-    //     isAuthenticated: PropTypes.bool
-    // }
-
     componentDidMount(){
-        //this.props.getProperties(id);
-        // const user = this.props.auth;
-        // console.log(user);
-        // console.log(user.token);
-
-        // Fetch all properties from the database and save to component state
-        fetch('/api/users/properties')
-            .then(res => res.json())
-            .then(data => this.setState({properties: data}));
+        this.props.getAllProperites();
     }
     
     toggle = () => {
@@ -42,8 +21,8 @@ class PropertyTable extends Component {
     render(){
 
         // const {properties} = this.props.properties;
-        const { isAuthenticated, user } = this.props.auth;
-        const postProperties = this.state.properties.map(property => (
+        const { user } = this.props.auth;
+        const postProperties = this.props.properties.map(property => (
             <div key={property._id} className="border border-primary rounded p-3 d-flex m-3">
                 <h3>{property.address}</h3>
                 <p>{property.listedPrice}</p>
@@ -68,9 +47,15 @@ class PropertyTable extends Component {
     }
 }
 
+PropertyTable.propTypes = {
+    getAllProperties: PropTypes.func.isRequired,
+    properties: PropTypes.array.isRequired,
+    isAuthenticated: PropTypes.bool
+}
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    properties: state.properties.properties
 });
 
-export default connect(mapStateToProps, null)(PropertyTable);
+export default connect(mapStateToProps, {getAllProperites})(PropertyTable);

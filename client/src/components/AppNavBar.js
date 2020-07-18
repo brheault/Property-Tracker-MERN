@@ -8,7 +8,6 @@ import{
     NavbarBrand,
     Nav,
     NavItem,
-//    NavLink,
     Container
 } from 'reactstrap';
 import {connect} from 'react-redux';
@@ -58,12 +57,16 @@ class AppNavBar extends Component {
             </Fragment>
         );
 
+        const propertiesPageLink = (
+            <NavbarBrand href="/properties">Properties</NavbarBrand>
+        );
+
         return(
         <div>
             <Navbar color="dark" dark expand="sm" className="mb-5">
                 <Container>
                     <NavbarBrand href="/">Home</NavbarBrand>
-                    <NavbarBrand href="/properties">Properties</NavbarBrand>
+                    {isAuthenticated ? propertiesPageLink : null}
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

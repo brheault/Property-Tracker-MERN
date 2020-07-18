@@ -82,7 +82,7 @@ export const logout = () => {
     };
 };
 
-//Set up headers with token
+//Set up headers with token for making restricted requests
 export const tokenConfig = getState => {
     //Get Token from local storage
     const token = getState().auth.token;

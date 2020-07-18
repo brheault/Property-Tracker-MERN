@@ -1,12 +1,19 @@
-import {GET_PROPERTIES, ADD_PROPERTY, DELETE_PROPERTY, PROPERTIES_LOADING} from "../actions/types";
+import {GET_PROPERTIES, ADD_PROPERTY, DELETE_PROPERTY, GET_ALL_PROPERTIES} from "../actions/types";
 
 const initialState = {
-    properties: [],
+    properties: [], //Initialized to be empty
+    property: {},       //For adding
     loading: false
 }
 
 export default function(state = initialState, action){
     switch(action.type){
+        case GET_ALL_PROPERTIES:
+            return{
+                ...state,
+                properties: action.payload,
+                loading: false
+            }
         case GET_PROPERTIES:
             return{
                 ...state,
@@ -24,12 +31,7 @@ export default function(state = initialState, action){
             return{
                 ...state,
                 //This syntax adds the new item (stored in payload) to the list of existing items (in state.items)
-                items: [action.payload, ...state.properties]
-            }
-        case ITEMS_LOADING:
-            return {
-                ...state,
-                loading: true
+                properties: [action.payload, ...state.properties]
             }
         default:
             return state;

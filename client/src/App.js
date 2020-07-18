@@ -3,10 +3,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import AppNavBar from "./components/AppNavBar.js";
-import TestList from "./components/TestList.js";
-import AddItemModal from "./components/AddItemModal";
 
-import {Container} from "reactstrap";
 import {loadUser} from "./actions/authActions.js";
 
 import Home from './screens/Home.js';
@@ -14,7 +11,7 @@ import Properties from './screens/Properties';
 import {Route} from 'react-router-dom';
 
 //Redux imports
-import { Provider } from 'react-redux';
+import { Provider /*, ReactReduxContext */} from 'react-redux';
 import store from "./store"
 
 class App extends Component {

@@ -2,10 +2,13 @@ import React from 'react';
 
 function Home(){
     return(
-        <div>
-            <h1 className="align-middle text-center">
+        <div className="align-middle text-center">
+            <h1 className="mb-5">
                 Home/About Screen
             </h1>
+            <h3>
+                Login or register to view properties page.
+            </h3>
         </div>
     );
 }

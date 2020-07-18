@@ -11,6 +11,9 @@ import {
 } from 'reactstrap';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {addProperty} from '../actions/propertyActions.js';
+import {loadUser} from '../actions/authActions.js';
+
 
 class AddPropertyModal extends Component{
     constructor(props){
@@ -18,15 +21,26 @@ class AddPropertyModal extends Component{
         this.state ={
             isModalOpen: false,
             address: '',
-            listedPrice: ''
+            listedPrice: '',
+            userId: ''
         };
 
         this.onChange = this.onChange.bind(this);
     }
 
-    // static propTypes = {
-    //     isAuthenticated: PropTypes.bool
-    // }
+    componentDidMount(){
+        fetch('/api/auth/user', {
+            method: 'GET',
+            headers: {
+                "content-type": "application/json",
+                "x-auth-token": this.props.auth.token
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.setState({userId: data._id});
+        })
+    }
 
     toggle = () => {
         this.setState({isModalOpen: !this.state.isModalOpen});
@@ -38,29 +52,24 @@ class AddPropertyModal extends Component{
 
     onSubmit = (e) => {
         e.preventDefault();
+        //Create a property object to send to the database
         const newProperty = {
             address: this.state.address,
-            listedPrice: this.state.listedPrice
+            listedPrice: this.state.listedPrice,
+            userId: this.state.userId
         };
-
-        console.log(JSON.stringify(newProperty));
-
-        fetch('/api/users/properties', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newProperty)
-        })
-            .then(res => res.json())
-            .then(data => console.log(data));
-
+        //Call creation action
+        this.props.addProperty(newProperty);
+        //Close the modal
         this.toggle();
     }
 
     render(){
+
+        //const { isAuthenticated, user } = this.props.auth;
+
         return(
-            <div>
+            <div className="ml-5">
                 <Button color="dark" style={{marginBottom: '2rem'}} onClick={this.toggle}>Add Property Manually</Button> 
 
                 
@@ -87,5 +96,14 @@ class AddPropertyModal extends Component{
     }
 }
 
+AddPropertyModal.propTypes = {
+    addProperty: PropTypes.func.isRequired,
+    loadUser: PropTypes.func.isRequired,
+    user:PropTypes.object.isRequired
+};
 
-export default AddPropertyModal;
+const mapStateToProps = (state) => ({
+    auth: state.auth //Contains
+});
+
+export default connect(mapStateToProps, {addProperty, loadUser})(AddPropertyModal);

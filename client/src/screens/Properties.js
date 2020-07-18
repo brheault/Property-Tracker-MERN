@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropertyTable from '../components/PropertyTable.js';
 import AddPropertyModal from "../components/AddPropertyModal";
 
