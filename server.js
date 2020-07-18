@@ -1,15 +1,14 @@
 //import config from './config/config.js';
 
 //Import Routes
-import userRoutes from './routes/userApi.js'
-import authRoutes from './routes/auth.js'
-import itemRoutes from './routes/itemApi.js'
+import userRoutes from './routes/userApi.js';
+import authRoutes from './routes/auth.js';
 
 //Import Packages
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import express from 'express';
-import path from 'path';
+import path from 'path'; 
 import bodyParser from 'body-parser';
 
 /*************************************************************** 
@@ -45,7 +44,6 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //Send api requests to the correct folders
-app.use('/api/items', itemRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 

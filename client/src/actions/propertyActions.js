@@ -16,7 +16,6 @@ export const getAllProperties = () => dispatch => {
 
 /* Function for getting properties of a specific user */
 export const getProperties = (userId) => (dispatch, getState) => {
-    console.log(userId);
     dispatch(setPropertiesLoading()); 
     axios.get(`/api/users/properties/${userId}`, tokenConfig(getState))
         .then(res => dispatch({

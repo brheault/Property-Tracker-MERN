@@ -88,7 +88,6 @@ router.post('/', (req, res) => {
 // @desc   => Returns the properties of a user given their ID
 // @access => Private
 router.get('/properties/:id', (req, res) => {
-    console.log("Get Properties endpoint reached");
     Property.find({userId: req.params.id})
         .sort({ dateAdded: -1 })
         .then(properties => res.json(properties))
@@ -98,7 +97,6 @@ router.get('/properties/:id', (req, res) => {
 // @desc   => Creates a new property object tied to a user's id
 // @access => Private
 router.post('/properties', auth, (req, res) => {
-    console.log("Create Property endpoint reached");
     const newProperty = new Property({
         address: req.body.address,
         listedPrice: req.body.listedPrice,
