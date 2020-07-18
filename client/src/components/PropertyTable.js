@@ -1,22 +1,41 @@
 import React, { Component } from 'react';
 import { Container} from 'reactstrap';
 import {connect} from 'react-redux';
-import {getAllProperites} from '../actions/propertyActions.js';
+import {getProperties} from '../actions/propertyActions.js';
 import PropTypes from 'prop-types';
 
 class PropertyTable extends Component {
 
-    componentDidMount(){
-        this.props.getAllProperites();
+    constructor(props){
+        super(props);
+        this.state ={
+            userId: ''
+        }; 
     }
+
+    async componentDidMount(){
+        await fetch('/api/auth/user', {
+            method: 'GET',
+            headers: {
+                "content-type": "application/json",
+                "x-auth-token": this.props.auth.token
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            this.setState({userId: data._id});
+        });
+
+        this.props.getProperties(this.state.userId);
+    }
+
     
     toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
-
-    
 
     render(){
 
@@ -38,7 +57,7 @@ class PropertyTable extends Component {
                 <div>
                     User ID : {user ? user._id : "No user found"}
                 </div>
-            </div>
+            </div> 
 
             {postProperties}
 
@@ -47,8 +66,10 @@ class PropertyTable extends Component {
     }
 }
 
+
+
 PropertyTable.propTypes = {
-    getAllProperties: PropTypes.func.isRequired,
+    getProperties: PropTypes.func.isRequired,
     properties: PropTypes.array.isRequired,
     isAuthenticated: PropTypes.bool
 }
@@ -58,4 +79,4 @@ const mapStateToProps = (state) => ({
     properties: state.properties.properties
 });
 
-export default connect(mapStateToProps, {getAllProperites})(PropertyTable);
+export default connect(mapStateToProps, {getProperties})(PropertyTable);

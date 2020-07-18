@@ -4,7 +4,7 @@ import {tokenConfig} from './authActions.js';
 import {returnErrors} from './errorActions.js';
 
 /* Function for getting all properties (for dev purposes) */
-export const getAllProperites = () => dispatch => {
+export const getAllProperties = () => dispatch => {
     axios.get('/api/users/properties')
     .then(res => dispatch({
         type: GET_ALL_PROPERTIES,
@@ -15,15 +15,16 @@ export const getAllProperites = () => dispatch => {
 }; 
 
 /* Function for getting properties of a specific user */
-// export const getProperties = (userId) => dispatch => {
-//     dispatch(setPropertiesLoading()); 
-//     axios.get(`/api/users/properties/${userId}`, tokenConfig(getState))
-//         .then(res => dispatch({
-//             type:GET_PROPERTIES,
-//             payload: res.data
-//         }))
-//         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
-// };
+export const getProperties = (userId) => (dispatch, getState) => {
+    console.log(userId);
+    dispatch(setPropertiesLoading()); 
+    axios.get(`/api/users/properties/${userId}`, tokenConfig(getState))
+        .then(res => dispatch({
+            type:GET_PROPERTIES,
+            payload: res.data
+        }))
+        .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+};
 
 /* Function for deleting a property */
 export const deleteProperty = (id) => (dispatch, getState) => {
@@ -45,9 +46,9 @@ export const addProperty = (property) => (dispatch, getState) => {
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// export const setPropertiesLoading = () => {
-//     return {
-//         //Sets from false to true
-//         type: PROPERTIES_LOADING
-//     }
-// }
+export const setPropertiesLoading = () => {
+    return {
+        //Sets from false to true
+        type: PROPERTIES_LOADING
+    }
+}

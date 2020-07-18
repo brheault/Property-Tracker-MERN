@@ -7,6 +7,7 @@ export const GET_PROPERTIES = 'GET_PROPERTIES';
 export const GET_ALL_PROPERTIES = 'GET_ALL_PROPERTIES'; //For development
 export const DELETE_PROPERTY = 'DELETE_PROPERTY';
 export const ADD_PROPERTY = 'ADD_PROPERTY';
+export const PROPERTIES_LOADING = 'PROPERTIES_LOADING';
 
 export const USER_LOADING = 'USER_LOADING';
 export const USER_LOADED = 'USER_LOADED';
