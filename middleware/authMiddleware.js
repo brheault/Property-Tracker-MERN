@@ -7,7 +7,6 @@ const jwtSecret= "pt_myJwtSecret";
 function auth(req, res, next){
     //Token will be sent in the request
     const token = req.header('x-auth-token');
-    console.log(token);
 
     //Check Token Existence
     if(!token) return res.status(401).json({msg: 'No token provided, authorization denied'});

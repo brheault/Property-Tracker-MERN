@@ -21,7 +21,6 @@ router.post('/', (req, res) => {
 
     //Verify that everything is included
     if (!name || !password || !email){
-        console.log("Not all information given");
         return res.status(400).json({msg: "Please enter all fields"});
     }
 
@@ -87,7 +86,7 @@ router.post('/', (req, res) => {
 // @route  => GET api/users/properties/<id>
 // @desc   => Returns the properties of a user given their ID
 // @access => Private
-router.get('/properties/:id', (req, res) => {
+router.get('/properties/:id', auth, (req, res) => {
     Property.find({userId: req.params.id})
         .sort({ dateAdded: -1 })
         .then(properties => res.json(properties))
@@ -109,7 +108,7 @@ router.post('/properties', auth, (req, res) => {
 // @route  => DELETE api/users/properties/<id>
 // @desc   => Deletes a property given its ID
 // @access => Private
-router.delete('/properties/:id', (req, res) => {
+router.delete('/properties/:id', auth, (req, res) => {
     Property.findById(req.params.id)
         .then(property => property.remove()
         .then(() => res.json({success: true})))
